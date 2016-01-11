@@ -1,10 +1,15 @@
-import debug_toolbar.urls
+try:
+    import debug_toolbar.urls as dt_urls
+except ImportError:
+    dt_urls = None
 
-from django.conf import settings
-from django.conf.urls import patterns, include
+if dt_urls:
 
-from .urls import urlpatterns
+    from django.conf import settings
+    from django.conf.urls import patterns, include
 
-debug_toolbar.urls.urlpatterns += patterns('',
-    ('', include(urlpatterns)),
-)
+    from .urls import urlpatterns
+
+    debug_toolbar.urls.urlpatterns += patterns('',
+        ('', include(urlpatterns)),
+    )
