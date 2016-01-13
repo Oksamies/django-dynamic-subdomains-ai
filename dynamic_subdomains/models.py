@@ -4,12 +4,9 @@ except ImportError:
     dt_urls = None
 
 if dt_urls:
-
-    from django.conf import settings
-    from django.conf.urls import patterns, include
-
+    from django.conf.urls import include
     from .urls import urlpatterns
 
-    debug_toolbar.urls.urlpatterns += patterns('',
+    dt_urls.urlpatterns += [
         ('', include(urlpatterns)),
-    )
+    ]

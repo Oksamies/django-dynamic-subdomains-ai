@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 setup(
     name='django-dynamic-subdomains',
     description="Dynamic and static subdomain support for Django.",
-    version='0.1',
+    version='0.1.1',
     url='http://code.playfire.com/',
 
     author='Playfire.com',
