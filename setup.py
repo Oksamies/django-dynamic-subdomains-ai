@@ -3,13 +3,13 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='django-dynamic-subdomains',
+    name='django-dynamic-subdomains-ai',
     description="Dynamic and static subdomain support for Django.",
-    version='0.1.1',
-    url='http://code.playfire.com/',
+    version='0.2.1',
+    url='https://github.com/andersinno/django-dynamic-subdomains',
 
-    author='Playfire.com',
-    author_email='tech@playfire.com',
+    author='Anders',
+    author_email='admin@anders.fi',
     license='BSD',
 
     packages=find_packages(),
