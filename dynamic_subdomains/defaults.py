@@ -1,8 +1,10 @@
+from collections import OrderedDict
+
 from django.core.exceptions import ImproperlyConfigured
-from django.utils.datastructures import SortedDict
+
 
 def patterns(*args):
-    subdomains = SortedDict()
+    subdomains = OrderedDict()
 
     for x in args:
         name = x['name']
