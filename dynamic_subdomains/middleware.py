@@ -6,6 +6,7 @@ from django.core.exceptions import MiddlewareNotUsed
 from .utils import set_urlconf_from_host
 from .app_settings import app_settings
 
+
 class SubdomainMiddleware(object):
     """
     Adjust incoming request's urlconf based on `settings.SUBDOMAINS`.
@@ -183,19 +184,21 @@ class SubdomainMiddleware(object):
         </div>
     """
 
-    def __init__(self):
+    def __init__(self, get_response):
+        self.get_response = get_response
         if not settings.SUBDOMAINS:
             raise MiddlewareNotUsed()
 
-    def process_request(self, request):
+    def __call__(self, request):
         host = request.get_host()
 
         with set_urlconf_from_host(host) as (subdomain, kwargs):
             request.urlconf = subdomain['urlconf']
 
-            return subdomain['_callback'](request, **kwargs)
+            callback_response = subdomain['_callback'](request, **kwargs)
 
-    def process_response(self, request, response):
+        response = callback_response or self.get_response(request)
+
         if not app_settings.EMULATE:
             return response
 
