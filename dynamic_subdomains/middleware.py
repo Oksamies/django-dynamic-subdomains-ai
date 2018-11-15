@@ -147,7 +147,8 @@ class SubdomainMiddleware(object):
         custom urlconfs.
     """
 
-    def __init__(self):
+    def __init__(self, get_response):
+        self.get_response = get_response
         try:
             settings.SUBDOMAINS
         except AttributeError:
@@ -177,7 +178,7 @@ class SubdomainMiddleware(object):
             subdomain['_regex'] = re.compile(r'%s(\.|$)' % subdomain['regex'])
             subdomain['_callback'] = callback
 
-    def process_request(self, request):
+    def __call__(self, request):
         if not getattr(_thread_local, 'enabled', True):
             return
 
@@ -199,6 +200,8 @@ class SubdomainMiddleware(object):
         request.urlconf = urlconf
         try:
             set_urlconf(urlconf)
-            return callback(request, **kwargs)
+            response_from_callback = callback(request, **kwargs)
         finally:
             set_urlconf(None)
+
+        return response_from_callback or self.get_response(request)
