@@ -3,7 +3,7 @@ import urllib
 
 from django.conf import settings
 from django.utils.encoding import force_unicode
-from django.core.urlresolvers import NoReverseMatch, reverse
+from django.urls import NoReverseMatch, reverse
 from django.utils.regex_helper import normalize
 
 def urlconf_from_subdomain(name):

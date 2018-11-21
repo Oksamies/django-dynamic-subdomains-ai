@@ -3,7 +3,7 @@ import threading
 
 from django.conf import settings
 from django.core.exceptions import MiddlewareNotUsed, ImproperlyConfigured
-from django.core.urlresolvers import set_urlconf
+from django.urls import set_urlconf
 
 from .utils import from_dotted_path
 
@@ -130,7 +130,7 @@ class SubdomainMiddleware(object):
         and not the default urlconf.
 
         This can cause problems when reversing URLs within your callback as
-        they may not be "visible" to ``django.core.urlresolvers.reverse`` as
+        they may not be "visible" to ``django.urls.reverse`` as
         they are specified in (eg.) the default urlconf.
 
         To remedy this, specify the ``urlconf`` parameter when calling
