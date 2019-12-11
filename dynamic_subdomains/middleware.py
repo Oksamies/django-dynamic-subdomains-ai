@@ -172,7 +172,7 @@ class SubdomainMiddleware(object):
         # pattern to avoid rather unwieldy escaping in every definition.
         for subdomain in settings.SUBDOMAINS.values():
             callback = subdomain.get('callback', lambda *args, **kwargs: None)
-            if isinstance(callback, (basestring,)):
+            if isinstance(callback, (str,)):
                 callback = from_dotted_path(callback)
 
             subdomain['_regex'] = re.compile(r'%s(\.|$)' % subdomain['regex'])

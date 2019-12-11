@@ -2,7 +2,7 @@ import re
 import urllib
 
 from django.conf import settings
-from django.utils.encoding import force_unicode
+from django.utils.encoding import force_text
 from django.urls import NoReverseMatch, reverse
 from django.utils.regex_helper import normalize
 
@@ -24,8 +24,8 @@ def reverse_subdomain(name, args=(), kwargs=None):
     except KeyError:
         raise NoReverseMatch("No subdomain called %s exists" % name)
 
-    unicode_args = [force_unicode(x) for x in args]
-    unicode_kwargs = dict([(k, force_unicode(v)) for (k, v) in kwargs.items()])
+    unicode_args = [force_text(x) for x in args]
+    unicode_kwargs = dict([(k, force_text(v)) for (k, v) in kwargs.items()])
 
     for result, params in normalize(subdomain['regex']):
         if args:
